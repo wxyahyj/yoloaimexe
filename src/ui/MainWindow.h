@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QTimer>
 #include <memory>
+#include <opencv2/videoio.hpp>
 #include "core/ModelYOLO.h"
 #include "SettingsPanel.h"
 

@@ -19,6 +19,14 @@ jobs:
     - name: Setup CMake
       uses: lukka/get-cmake@latest
       
+    - name: Cache Qt
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/qt
+        key: qt-6.5.0-windows
+        restore-keys: |
+          qt-6.5.0-
+      
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
@@ -29,29 +37,55 @@ jobs:
         dir: '${{ github.workspace }}/qt'
         install-deps: 'true'
         
+    - name: Cache vcpkg
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ github.workspace }}/vcpkg
+          ${{ github.workspace }}/vcpkg_installed
+        key: vcpkg-opencv4-windows
+        restore-keys: |
+          vcpkg-
+      
     - name: Install OpenCV
       run: |
-        git clone https://github.com/Microsoft/vcpkg.git
-        cd vcpkg
-        .\bootstrap-vcpkg.bat
+        if (-not (Test-Path "vcpkg")) {
+          git clone https://github.com/Microsoft/vcpkg.git
+          cd vcpkg
+          .\bootstrap-vcpkg.bat
+        } else {
+          cd vcpkg
+        }
         .\vcpkg install opencv4:x64-windows
         cd ..
+        New-Item -ItemType Directory -Path "vcpkg_installed" -Force
+        Copy-Item -Path "vcpkg/installed" -Destination "vcpkg_installed" -Recurse -Force
       working-directory: ${{ github.workspace }}
         
+    - name: Cache ONNX Runtime
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/onnxruntime
+        key: onnxruntime-1.15.1-windows
+        restore-keys: |
+          onnxruntime-
+      
     - name: Download ONNX Runtime
       run: |
-        $ProgressPreference = 'SilentlyContinue'
-        Invoke-WebRequest -Uri "https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-win-x64-gpu-1.15.1.zip" -OutFile "onnxruntime.zip"
-        Expand-Archive -Path "onnxruntime.zip" -DestinationPath "." -Force
-        Rename-Item -Path "onnxruntime-win-x64-gpu-1.15.1" -NewName "onnxruntime"
+        if (-not (Test-Path "onnxruntime")) {
+          $ProgressPreference = 'SilentlyContinue'
+          Invoke-WebRequest -Uri "https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-win-x64-gpu-1.15.1.zip" -OutFile "onnxruntime.zip"
+          Expand-Archive -Path "onnxruntime.zip" -DestinationPath "." -Force
+          Rename-Item -Path "onnxruntime-win-x64-gpu-1.15.1" -NewName "onnxruntime"
+        }
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
-      run: cmake --build build --config Release
+      run: cmake --build build --config Release --parallel 8
       working-directory: ${{ github.workspace }}
       
     - name: Deploy Qt
@@ -76,24 +110,42 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
+    - name: Cache dependencies
+      uses: actions/cache@v4
+      with:
+        path: /var/cache/apt
+        key: apt-dependencies-linux
+        restore-keys: |
+          apt-
+      
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y cmake build-essential libopencv-dev qt6-base-dev qt6-base-dev-tools
       
+    - name: Cache ONNX Runtime
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/onnxruntime
+        key: onnxruntime-1.15.1-linux
+        restore-keys: |
+          onnxruntime-
+      
     - name: Download ONNX Runtime
       run: |
-        wget https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-linux-x64-1.15.1.tgz
-        tar -xzf onnxruntime-linux-x64-1.15.1.tgz
-        mv onnxruntime-linux-x64-1.15.1 onnxruntime
+        if [ ! -d "onnxruntime" ]; then
+          wget https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-linux-x64-1.15.1.tgz
+          tar -xzf onnxruntime-linux-x64-1.15.1.tgz
+          mv onnxruntime-linux-x64-1.15.1 onnxruntime
+        fi
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
-      run: cmake --build build --config Release
+      run: cmake --build build --config Release --parallel 8
       working-directory: ${{ github.workspace }}
       
     - name: Upload artifact

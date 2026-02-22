@@ -173,8 +173,6 @@ void ModelYOLO::loadModel(const std::string& modelPath, const std::string& useGP
         inputBuffer_.resize(inputBufferSize_);
         std::cout << "[ModelYOLO] Allocated input buffer size: " << inputBufferSize_ << std::endl;
         
-        name = "YOLO";
-        
         std::cout << "[ModelYOLO] Model loaded successfully" << std::endl;
         std::cout << "  Input size: " << inputWidth_ << "x" << inputHeight_ << std::endl;
         std::cout << "  Num classes: " << numClasses_ << std::endl;
@@ -240,27 +238,25 @@ std::vector<Detection> ModelYOLO::inference(const cv::Mat& input) {
         
         std::vector<int64_t> inputShape = {1, 3, inputHeight_, inputWidth_};
         
-        Ort::Value inputTensor;
+        std::vector<Ort::Value> inputTensors;
         try {
             Ort::MemoryInfo memoryInfo = Ort::MemoryInfo::CreateCpu(
                 OrtAllocatorType::OrtArenaAllocator, 
                 OrtMemType::OrtMemTypeDefault
             );
             
-            inputTensor = Ort::Value::CreateTensor<float>(
+            auto inputTensor = Ort::Value::CreateTensor<float>(
                 memoryInfo,
                 inputBuffer_.data(),
                 inputBufferSize_,
                 inputShape.data(),
                 inputShape.size()
             );
+            inputTensors.push_back(std::move(inputTensor));
         } catch (const std::exception& e) {
             std::cerr << "[ModelYOLO] Failed to create input tensor: " << e.what() << std::endl;
             return {};
         }
-        
-        std::vector<Ort::Value> inputTensors;
-        inputTensors.push_back(std::move(inputTensor));
         
         std::vector<const char*> inputNamesChar;
         for (const auto& name : inputNames_) {

@@ -1,0 +1,211 @@
+Run cmake --build build --config Release
+MSBuild version 17.14.40+3e7442088 for .NET Framework
+
+  1>Checking Build System
+  Automatic MOC and UIC for target yolo_detector_exe
+  Building Custom Rule D:/a/yoloaimexe/yoloaimexe/CMakeLists.txt
+  main.cpp
+  ModelYOLO.cpp
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2039: 'VideoCapture': is not a member of 'cv' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/main.cpp')
+      D:\a\yoloaimexe\yoloaimexe\vcpkg\installed\x64-windows\include\opencv4\opencv2\imgproc\segmentation.hpp(10,11):
+      see declaration of 'cv'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2065: 'VideoCapture': undeclared identifier [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/main.cpp')
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2923: 'std::unique_ptr': 'VideoCapture' is not a valid template type argument for parameter '_Ty' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/main.cpp')
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25):
+      see declaration of 'VideoCapture'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2976: 'std::unique_ptr': too few template arguments [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,39): error C2955: 'std::unique_ptr': use of class template requires template argument list [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/main.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\core\ModelYOLO.cpp(176,9): error C2065: 'name': undeclared identifier [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\core\ModelYOLO.cpp(243,20): error C2512: 'Ort::Value': no appropriate default constructor available [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      D:\a\yoloaimexe\yoloaimexe\onnxruntime\include\onnxruntime_cxx_api.h(1295,8):
+      see declaration of 'Ort::Value'
+  
+  MainWindow.cpp
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2039: 'VideoCapture': is not a member of 'cv' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/ui/MainWindow.cpp')
+      D:\a\yoloaimexe\yoloaimexe\vcpkg\installed\x64-windows\include\opencv4\opencv2\imgproc\segmentation.hpp(10,11):
+      see declaration of 'cv'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2065: 'VideoCapture': undeclared identifier [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/ui/MainWindow.cpp')
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2923: 'std::unique_ptr': 'VideoCapture' is not a valid template type argument for parameter '_Ty' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/ui/MainWindow.cpp')
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25):
+      see declaration of 'VideoCapture'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2976: 'std::unique_ptr': too few template arguments [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/ui/MainWindow.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,39): error C2955: 'std::unique_ptr': use of class template requires template argument list [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file '../src/ui/MainWindow.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(12,1): error C2512: 'std::unique_ptr': no appropriate default constructor available [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+  SettingsPanel.cpp
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,17): error C2678: binary '->': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3452,37):
+      could be '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,17):
+          '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const': cannot convert 'this' pointer from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,17):
+              Reason: cannot convert from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,17):
+              Conversion requires a second user-defined-conversion operator or constructor
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,17):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(21,23): error C2039: 'isOpened': is not a member of 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,9): error C2678: binary '->': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3452,37):
+      could be '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,9):
+          '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const': cannot convert 'this' pointer from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,9):
+              Reason: cannot convert from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,9):
+              Conversion requires a second user-defined-conversion operator or constructor
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,9):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(22,13): error C2232: '->std::unique_ptr<_Ty,_Dx>::release': left operand has 'class' type, use '.' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9): error C2678: binary '=': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3476,17):
+      could be 'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(const std::unique_ptr<_Ty,_Dx> &)'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+          'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(const std::unique_ptr<_Ty,_Dx> &)': cannot convert 'this' pointer from 'std::unique_ptr' to 'std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+              Reason: cannot convert from 'std::unique_ptr' to 'std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3362,30):
+      or       'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::nullptr_t) noexcept'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+          'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::nullptr_t) noexcept': cannot convert 'this' pointer from 'std::unique_ptr' to 'std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+              Reason: cannot convert from 'std::unique_ptr' to 'std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3413,30):
+      or       'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::unique_ptr<_Ty,_Dx> &&) noexcept'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+          'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::unique_ptr<_Ty,_Dx> &&) noexcept': could not deduce template argument for '__formal'
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3406,30):
+      or       'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+          'std::unique_ptr<_Ty,_Dx> &std::unique_ptr<_Ty,_Dx>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept': could not deduce template argument for '__formal'
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,9):
+      while trying to match the argument list '(std::unique_ptr, std::unique_ptr<cv::VideoCapture,std::default_delete<cv::VideoCapture>>)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(78,14): error C2582: 'operator =' function is unavailable in 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,14): error C2678: binary '->': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3452,37):
+      could be '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,14):
+          '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const': cannot convert 'this' pointer from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,14):
+              Reason: cannot convert from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,14):
+              Conversion requires a second user-defined-conversion operator or constructor
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,14):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(79,20): error C2039: 'isOpened': is not a member of 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(88,13): error C2451: a conditional expression of type 'std::unique_ptr' is not valid [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(88,13):
+      No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,13): error C2678: binary '->': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3452,37):
+      could be '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,13):
+          '_Get_deleter_pointer_type<_Ty,remove_reference<_Ty1>::type,void>::type std::unique_ptr<_Ty,_Dx>::operator ->(void) noexcept const': cannot convert 'this' pointer from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,13):
+              Reason: cannot convert from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,13):
+              Conversion requires a second user-defined-conversion operator or constructor
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,13):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(89,17): error C2232: '->std::unique_ptr<_Ty,_Dx>::release': left operand has 'class' type, use '.' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(102,10): error C2678: binary '!': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(102,10):
+      could be 'built-in C++ operator!(bool)'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(102,10):
+          '!': cannot convert argument 1 from 'std::unique_ptr' to 'bool'
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(102,10):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(102,9): error C2088: built-in operator '!' cannot be applied to an operand of type 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,6): error C2678: binary '*': no operator found which takes a left-hand operand of type 'std::unique_ptr' (or there is no acceptable conversion) [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3448,57):
+      could be '_Add_reference<_Ty,void>::_Lvalue std::unique_ptr<_Ty,_Dx>::operator *(void) noexcept(<expr>) const'
+          D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,6):
+          '_Add_reference<_Ty,void>::_Lvalue std::unique_ptr<_Ty,_Dx>::operator *(void) noexcept(<expr>) const': cannot convert 'this' pointer from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx> &'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,6):
+              Reason: cannot convert from 'std::unique_ptr' to 'const std::unique_ptr<_Ty,_Dx>'
+              D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,6):
+              Conversion requires a second user-defined-conversion operator or constructor
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\complex(1469,38):
+      or       'std::complex<_Ty> std::operator *(const std::complex<_Ty> &,const std::complex<_Ty> &) noexcept(<expr>)'
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\complex(1477,38):
+      or       'std::complex<_Ty> std::operator *(const std::complex<_Ty> &,const _Ty &) noexcept(<expr>)'
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\complex(1485,38):
+      or       'std::complex<_Ty> std::operator *(const _Ty &,const std::complex<_Ty> &) noexcept(<expr>)'
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,6):
+      while trying to match the argument list '(std::unique_ptr)'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,5): error C2100: you cannot dereference an operand of type 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.cpp(105,11): error C2088: built-in operator '>>' cannot be applied to an operand of type 'std::unique_ptr' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  mocs_compilation_Release.cpp
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2039: 'VideoCapture': is not a member of 'cv' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file 'yolo_detector_exe_autogen/mocs_compilation_Release.cpp')
+      D:\a\yoloaimexe\yoloaimexe\vcpkg\installed\x64-windows\include\opencv4\opencv2\imgproc\segmentation.hpp(10,11):
+      see declaration of 'cv'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25): error C2065: 'VideoCapture': undeclared identifier [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file 'yolo_detector_exe_autogen/mocs_compilation_Release.cpp')
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2923: 'std::unique_ptr': 'VideoCapture' is not a valid template type argument for parameter '_Ty' [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file 'yolo_detector_exe_autogen/mocs_compilation_Release.cpp')
+      D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,25):
+      see declaration of 'VideoCapture'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,10): error C2976: 'std::unique_ptr': too few template arguments [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file 'yolo_detector_exe_autogen/mocs_compilation_Release.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+D:\a\yoloaimexe\yoloaimexe\src\ui\MainWindow.h(38,39): error C2955: 'std::unique_ptr': use of class template requires template argument list [D:\a\yoloaimexe\yoloaimexe\build\yolo_detector_exe.vcxproj]
+  (compiling source file 'yolo_detector_exe_autogen/mocs_compilation_Release.cpp')
+      C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\memory(3347,7):
+      see declaration of 'std::unique_ptr'
+  
+  Generating Code...
+Error: Process completed with exit code 1.
