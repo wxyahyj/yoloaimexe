@@ -41,7 +41,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/opencv
-        key: opencv-4.8.0-windows
+        key: opencv-4.13.0-windows
         restore-keys: |
           opencv-
       
@@ -49,12 +49,10 @@ jobs:
       run: |
         if (-not (Test-Path "opencv")) {
           $ProgressPreference = 'SilentlyContinue'
-          # Download pre-built OpenCV from GitHub
-          Invoke-WebRequest -Uri "https://github.com/opencv/opencv/releases/download/4.8.0/opencv-4.8.0-windows-vc16.exe" -OutFile "opencv.exe"
+          # Download pre-built OpenCV using the provided URL
+          Invoke-WebRequest -Uri "https://github.com/opencv/opencv/releases/download/4.13.0/opencv-4.13.0-windows.exe" -OutFile "opencv.exe"
           # Extract using 7zip (available in GitHub Actions)
           7z x "opencv.exe" -o"opencv" -y
-          # Rename extracted directory to simple name
-          Rename-Item -Path "opencv/opencv" -NewName "opencv/build"
         }
       working-directory: ${{ github.workspace }}
         
