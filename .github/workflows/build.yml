@@ -37,29 +37,25 @@ jobs:
         dir: '${{ github.workspace }}/qt'
         install-deps: 'true'
         
-    - name: Cache vcpkg
+    - name: Cache OpenCV
       uses: actions/cache@v4
       with:
-        path: |
-          ${{ github.workspace }}/vcpkg
-          ${{ github.workspace }}/vcpkg_installed
-        key: vcpkg-opencv4-windows
+        path: ${{ github.workspace }}/opencv
+        key: opencv-4.8.0-windows
         restore-keys: |
-          vcpkg-
+          opencv-
       
-    - name: Install OpenCV
+    - name: Download Pre-built OpenCV
       run: |
-        if (-not (Test-Path "vcpkg")) {
-          git clone https://github.com/Microsoft/vcpkg.git
-          cd vcpkg
-          .\bootstrap-vcpkg.bat
-        } else {
-          cd vcpkg
+        if (-not (Test-Path "opencv")) {
+          $ProgressPreference = 'SilentlyContinue'
+          # Download pre-built OpenCV from GitHub
+          Invoke-WebRequest -Uri "https://github.com/opencv/opencv/releases/download/4.8.0/opencv-4.8.0-windows-vc16.exe" -OutFile "opencv.exe"
+          # Extract using 7zip (available in GitHub Actions)
+          7z x "opencv.exe" -o"opencv" -y
+          # Rename extracted directory to simple name
+          Rename-Item -Path "opencv/opencv" -NewName "opencv/build"
         }
-        .\vcpkg install opencv4:x64-windows
-        cd ..
-        New-Item -ItemType Directory -Path "vcpkg_installed" -Force
-        Copy-Item -Path "vcpkg/installed" -Destination "vcpkg_installed" -Recurse -Force
       working-directory: ${{ github.workspace }}
         
     - name: Cache ONNX Runtime
@@ -81,7 +77,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DCMAKE_BUILD_PARALLEL_LEVEL=8
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64;${{ github.workspace }}/opencv/build" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
