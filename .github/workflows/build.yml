@@ -29,6 +29,15 @@ jobs:
         dir: '${{ github.workspace }}/qt'
         install-deps: 'true'
         
+    - name: Install OpenCV
+      run: |
+        git clone https://github.com/Microsoft/vcpkg.git
+        cd vcpkg
+        .\bootstrap-vcpkg.bat
+        .\vcpkg install opencv4:x64-windows
+        cd ..
+      working-directory: ${{ github.workspace }}
+        
     - name: Download ONNX Runtime
       run: |
         $ProgressPreference = 'SilentlyContinue'
@@ -38,7 +47,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64"
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake"
       working-directory: ${{ github.workspace }}
       
     - name: Build
