@@ -37,24 +37,31 @@ jobs:
         dir: '${{ github.workspace }}/qt'
         install-deps: 'true'
         
-    - name: Cache OpenCV
+    - name: Cache vcpkg
       uses: actions/cache@v4
       with:
-        path: ${{ github.workspace }}/opencv
-        key: opencv-4.13.0-windows
+        path: |
+          ${{ github.workspace }}/vcpkg
+          ${{ github.workspace }}/vcpkg_installed
+        key: vcpkg-opencv-windows
         restore-keys: |
-          opencv-
+          vcpkg-
       
-    - name: Download Pre-built OpenCV
+    - name: Checkout vcpkg repository
+      uses: actions/checkout@v5
+      with:
+        repository: microsoft/vcpkg
+        path: ${{ github.workspace }}/vcpkg
+      
+    - name: Bootstrap vcpkg
+      working-directory: ${{ github.workspace }}/vcpkg
+      run: .\bootstrap-vcpkg.bat
+      
+    - name: Install dependencies from vcpkg
       run: |
-        if (-not (Test-Path "opencv")) {
-          $ProgressPreference = 'SilentlyContinue'
-          # Download pre-built OpenCV using the provided URL
-          Invoke-WebRequest -Uri "https://github.com/opencv/opencv/releases/download/4.13.0/opencv-4.13.0-windows.exe" -OutFile "opencv.exe"
-          # Extract using 7zip (available in GitHub Actions)
-          7z x "opencv.exe" -o"opencv" -y
-        }
-      working-directory: ${{ github.workspace }}
+        $VCPKG_ROOT\vcpkg install --triplet x64-windows-static-md-obs
+      env:
+        VCPKG_ROOT: ${{ github.workspace }}/vcpkg
         
     - name: Cache ONNX Runtime
       uses: actions/cache@v4
@@ -75,7 +82,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64;${{ github.workspace }}/opencv/build" -DCMAKE_BUILD_PARALLEL_LEVEL=8
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-windows-static-md-obs" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
@@ -104,18 +111,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Cache dependencies
+    - name: Cache vcpkg
       uses: actions/cache@v4
       with:
-        path: /var/cache/apt
-        key: apt-dependencies-linux
+        path: |
+          ${{ github.workspace }}/vcpkg
+          ${{ github.workspace }}/vcpkg_installed
+        key: vcpkg-opencv-linux
         restore-keys: |
-          apt-
+          vcpkg-
       
-    - name: Install dependencies
+    - name: Checkout vcpkg repository
+      uses: actions/checkout@v5
+      with:
+        repository: microsoft/vcpkg
+        path: ${{ github.workspace }}/vcpkg
+      
+    - name: Bootstrap vcpkg
+      working-directory: ${{ github.workspace }}/vcpkg
+      run: ./bootstrap-vcpkg.sh
+      
+    - name: Install dependencies from vcpkg
       run: |
-        sudo apt-get update
-        sudo apt-get install -y cmake build-essential libopencv-dev qt6-base-dev qt6-base-dev-tools
+        $VCPKG_ROOT/vcpkg install --triplet x64-linux-obs
+      env:
+        VCPKG_ROOT: ${{ github.workspace }}/vcpkg
       
     - name: Cache ONNX Runtime
       uses: actions/cache@v4
@@ -135,7 +155,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_BUILD_PARALLEL_LEVEL=8
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-linux-obs" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
