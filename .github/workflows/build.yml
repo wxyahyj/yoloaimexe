@@ -59,7 +59,7 @@ jobs:
       
     - name: Install dependencies from vcpkg
       shell: bash
-      run: "$VCPKG_ROOT/vcpkg install --triplet x64-windows-static-md-obs"
+      run: "$VCPKG_ROOT/vcpkg install --triplet x64-windows-static-md"
       env:
         VCPKG_ROOT: ${{ github.workspace }}/vcpkg
         
@@ -82,7 +82,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-windows-static-md-obs" -DCMAKE_BUILD_PARALLEL_LEVEL=8
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64" -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-windows-static-md" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
@@ -133,7 +133,7 @@ jobs:
       
     - name: Install dependencies from vcpkg
       run: |
-        $VCPKG_ROOT/vcpkg install --triplet x64-linux-obs
+        $VCPKG_ROOT/vcpkg install --triplet x64-linux
       env:
         VCPKG_ROOT: ${{ github.workspace }}/vcpkg
       
@@ -155,7 +155,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       
     - name: Configure CMake
-      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-linux-obs" -DCMAKE_BUILD_PARALLEL_LEVEL=8
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-linux" -DCMAKE_BUILD_PARALLEL_LEVEL=8
       working-directory: ${{ github.workspace }}
       
     - name: Build
