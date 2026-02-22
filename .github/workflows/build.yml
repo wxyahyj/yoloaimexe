@@ -1,0 +1,95 @@
+name: Build YOLO Detector
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    name: Build on Windows
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup CMake
+      uses: lukka/get-cmake@latest
+      
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: '6.5.0'
+        host: 'windows'
+        target: 'desktop'
+        arch: 'win64_msvc2019_64'
+        dir: '${{ github.workspace }}/qt'
+        install-deps: 'true'
+        
+    - name: Download ONNX Runtime
+      run: |
+        $ProgressPreference = 'SilentlyContinue'
+        Invoke-WebRequest -Uri "https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/Microsoft.ML.OnnxRuntime.Gpu.1.15.1.zip" -OutFile "onnxruntime.zip"
+        Expand-Archive -Path "onnxruntime.zip" -DestinationPath "." -Force
+        Rename-Item -Path "runtimes" -NewName "onnxruntime"
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Configure CMake
+      run: cmake -B build -S . -DCMAKE_PREFIX_PATH="${{ github.workspace }}/qt/6.5.0/msvc2019_64"
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Build
+      run: cmake --build build --config Release
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Deploy Qt
+      run: |
+        $qtBin = "${{ github.workspace }}/qt/6.5.0/msvc2019_64/bin"
+        $buildDir = "${{ github.workspace }}/重构exe/build/bin/Release"
+        & $qtBin/windeployqt.exe $buildDir/yolo_detector_exe.exe
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: yolo-detector-windows
+        path: |
+          ${{ github.workspace }}/重构exe/build/bin/Release/
+          
+  build-linux:
+    name: Build on Linux
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential libopencv-dev qt6-base-dev qt6-base-dev-tools
+      
+    - name: Download ONNX Runtime
+      run: |
+        wget https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-linux-x64-1.15.1.tgz
+        tar -xzf onnxruntime-linux-x64-1.15.1.tgz
+        mv onnxruntime-linux-x64-1.15.1 onnxruntime
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Configure CMake
+      run: cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Build
+      run: cmake --build build --config Release
+      working-directory: ${{ github.workspace }}/重构exe
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: yolo-detector-linux
+        path: |
+          ${{ github.workspace }}/重构exe/build/
